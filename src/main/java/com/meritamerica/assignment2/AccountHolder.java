@@ -1,16 +1,15 @@
 package com.meritamerica.assignment2;
 
-import java.util.Arrays;
-
-public class AccountHolder 
+public class AccountHolder
 {
 	private String nameFirst;
 	private String nameMiddle;
 	private String nameLast;
 	private String SSN;
-	
-	
-	AccountHolder() 
+	private CheckingAccount[] checkingAccounts;
+	private SavingsAccount[] savingsAccounts;
+
+	AccountHolder()
 	{
 		this.nameFirst = new String();
 		this.nameMiddle = new String();
@@ -18,59 +17,164 @@ public class AccountHolder
 		this.SSN = new String();
 	}
 
-	AccountHolder(String firstName, String middleName, 
-			String lastName, String SSN)
+	AccountHolder(
+			String firstName, String middleName, String lastName, String SSN
+	)
 	{
-		setFirstName(firstName);
-		setMiddleName(middleName);
-		setLastName(lastName);
-		setSSN (SSN);
+		setFirstName( firstName );
+		setMiddleName( middleName );
+		setLastName( lastName );
+		setSSN( SSN );
 	}
-	
-	public String getFirstName() {
+
+	public String getFirstName()
+	{
 		return this.nameFirst;
 	}
-	
-	private void setFirstName(String firstName) {
+
+	private void setFirstName(
+			String firstName
+	)
+	{
 		this.nameFirst = firstName;
-		
 	}
-	
-	public String getMiddleName() {
-		return this.nameFirst;
+
+	public String getMiddleName()
+	{
+		return this.nameMiddle;
 	}
-	
-	private void setMiddleName(String middleName) {
+
+	private void setMiddleName(
+			String middleName
+	)
+	{
 		this.nameMiddle = middleName;
-		
 	}
-	
-	public String getLastName() {
+
+	public String getLastName()
+	{
 		return this.nameLast;
 	}
-	
-	private void setLastName(String lastName) {
+
+	private void setLastName(
+			String lastName
+	)
+	{
 		this.nameLast = lastName;
-		
 	}
-	
-	public String getSSN() {
+
+	public String getSSN()
+	{
 		return this.SSN;
 	}
-	
-	private void setSSN(String SSN) {
+
+	private void setSSN(
+			String SSN
+	)
+	{
 		this.SSN = SSN;
 	}
-	
-	public String toString() {
-	
-	StringBuilder s = new StringBuilder();
-	
-	s.append( "Name: " + this.getFirstName() + " " 
-	+ this.getMiddleName() + " " 
-	+ this.getLastName() + " "
-	+ this.getSSN() );
-	
-	return s.toString();
-	}	
+
+	public CheckingAccount addCheckingAccount(
+			double openingBalance
+	)
+	{
+		return new CheckingAccount( openingBalance );
+	}
+
+	public CheckingAccount addCheckingAccount(
+			CheckingAccount checkingAccount
+	)
+	{
+		return checkingAccount;
+	}
+
+	public CheckingAccount[] getCheckingAccounts()
+	{
+		return new CheckingAccount[ 1 ];
+	}
+
+	public int getNumberOfCheckingAccounts()
+	{
+		return 0;
+	}
+
+	public double getCheckingBalance()
+	{
+		return 0;
+	}
+
+	public SavingsAccount addSavingsAccount(
+			double openingBalance
+	)
+	{
+		return new SavingsAccount();
+	}
+
+	public SavingsAccount addSavingsAccount(
+			SavingsAccount savingsAccount
+	)
+	{
+		return new SavingsAccount();
+	}
+
+	public SavingsAccount[] getSavingsAccounts()
+	{
+		return new SavingsAccount[ 1 ];
+	}
+
+	public int getNumberOfSavingsAccounts()
+	{
+		return 0;
+	}
+
+	public double getSavingsBalance()
+	{
+		return 0;
+	}
+
+	public CDAccount addCDAccount(
+			CDOffering offering,
+			double openingBalance
+	)
+	{
+		return new CDAccount();
+	}
+
+	public CDAccount addCDAccount(
+			CDAccount cdAccount
+	)
+	{
+		return new CDAccount();
+	}
+
+	public CDAccount[] getCDAccounts()
+	{
+		return new CDAccount[ 0 ];
+	}
+
+	public int getNumberOfCDAccounts()
+	{
+		return 0;
+	}
+
+	public double getCDBalance()
+	{
+		return 0;
+	}
+
+	public double getCombinedBalance()
+	{
+		return 0;
+	}
+
+	public String toString()
+	{
+
+		StringBuilder s = new StringBuilder();
+
+		s.append( "Name: " + this.getFirstName() + " " + this.getMiddleName() + " " + this.getLastName() + " " + this.getSSN() );
+
+		return s.toString();
+	}
 }
