@@ -82,10 +82,21 @@ public class MeritBank
 		return 0;
 	}
 
+	public static SavingsAccount[] accountAddOne(
+			SavingsAccount[] source,
+			SavingsAccount nsa
+	)
+	{
+		SavingsAccount[] destination = new SavingsAccount[ source.length + 1 ];
+		System.arraycopy( source, 0, destination, 0, source.length );
+		destination[ source.length ] = nsa;
+		return destination;
+	}
 	public static CheckingAccount[] accountAddOne(
 			CheckingAccount[] source,
 			CheckingAccount nca
 	)
+	
 	{
 		CheckingAccount[] destination = new CheckingAccount[ source.length + 1 ];
 		System.arraycopy( source, 0, destination, 0, source.length );

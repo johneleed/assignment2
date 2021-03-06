@@ -156,7 +156,23 @@ public class AccountHolder
 			double openingBalance
 	)
 	{
-		return new SavingsAccount();
+		SavingsAccount nsa = null;
+		if( getAccountBalances() <= MeritBank.ACCOUNT_BALANCES_MAX )
+			
+		{
+			nsa = new SavingsAccount( openingBalance );
+			if( savingsAccounts == null )
+			{
+				savingsAccounts = new SavingsAccount[ 1 ];
+				savingsAccounts[ 0 ] = nsa;
+			}
+			else
+			{
+				savingsAccounts = MeritBank.accountAddOne( savingsAccounts, nsa );
+			}
+		}
+		
+		return nsa;
 	}
 
 	public SavingsAccount addSavingsAccount(
@@ -230,19 +246,20 @@ public class AccountHolder
 
 		StringBuilder s = new StringBuilder();
 
-		s.append( "Name: " + this.getFirstName() + " " + this.getMiddleName() + " " + this.getLastName() + " " + this.getSSN() );
-		System.out.println("checking");
+		s.append( "Name: " + this.getFirstName() + " " + this.getMiddleName() 
+		+ " " + this.getLastName() + " " + this.getSSN() );
+		s.append("\n\tchecking");
 		if (checkingAccounts != null )
 			
 		for(int i = 0; i < checkingAccounts.length; i++) {
-			System.out.println(checkingAccounts[i].getAccountNumber());
-			System.out.println(checkingAccounts[i].getBalance());
+			s.append("\n\t\t" + checkingAccounts[i].getAccountNumber());
+			s.append("\n\t\t\t" + checkingAccounts[i].getBalance());
 		}
 		
-		System.out.println("savings");if ( savingsAccounts != null)
+		s.append("\n\tsavings");if ( savingsAccounts != null)
 		for(int i = 0; i < savingsAccounts.length; i++) {
-			System.out.println(savingsAccounts[i].getAccountNumber());
-			System.out.println(savingsAccounts[i].getBalance());
+			s.append("\n\t\t" + savingsAccounts[i].getAccountNumber());
+			s.append("\n\t\t\t" + savingsAccounts[i].getBalance());
 		}
 		return s.toString();
 	}
