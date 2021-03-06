@@ -16,7 +16,7 @@ public class BankAccount {
 	}
 
 	public long getAccountNumber() {
-		return 0;
+		return MeritBank.getNextAccountNumber();
 	}
 
 	public double getBalance() {

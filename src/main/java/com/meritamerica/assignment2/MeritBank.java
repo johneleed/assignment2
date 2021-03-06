@@ -2,24 +2,31 @@ package com.meritamerica.assignment2;
 
 public class MeritBank
 {
-	private static CDOffering[] cdos;
-	public static final int ACCOUNT_BALANCES_MAX = 250000;
-	private static long accountNumberNext = 1000000;
+	static AccountHolder accountHolders[];
 
 	static void addAccountHolder(
 			AccountHolder accountHolder
 	)
 	{
+		if( accountHolder == null )
+		{
+			accountHolders = new AccountHolder[ 1 ];
+			accountHolders[0] = accountHolder;
+		}
+		else
+		{
+			
+		}
 	}
 
 	static AccountHolder[] getAccountHolders()
 	{
-		return new AccountHolder[ 0 ];
+		return accountHolders;
 	}
 
 	static CDOffering[] getCDOfferings()
 	{
-		return new CDOffering[ 0 ];
+		return cdos;
 	}
 
 	static CDOffering getBestCDOffering(
@@ -38,6 +45,7 @@ public class MeritBank
 
 	static void clearCDOfferings()
 	{
+		cdos = null;
 	}
 
 	static void setCDOfferings(
@@ -54,7 +62,15 @@ public class MeritBank
 
 	static double totalBalances()
 	{
-		return 0;
+		double balances = 0;
+		if( checkingAccounts != null )
+			for( int x = 0; x < checkingAccounts.length; x++ )
+				balances += checkingAccounts[ x ].getBalance();
+		if( savingsAccounts != null )
+			for( int x = 0; x < savingsAccounts.length; x++ )
+				balances += savingsAccounts[ x ].getBalance();
+
+		return balances;
 	}
 
 	static double futureValue(
@@ -65,4 +81,21 @@ public class MeritBank
 	{
 		return 0;
 	}
+
+	public static CheckingAccount[] accountAddOne(
+			CheckingAccount[] source,
+			CheckingAccount nca
+	)
+	{
+		CheckingAccount[] destination = new CheckingAccount[ source.length + 1 ];
+		System.arraycopy( source, 0, destination, 0, source.length );
+		destination[ source.length ] = nca;
+		return destination;
+	}
+	
+	public static final int ACCOUNT_BALANCES_MAX = 250000;
+
+	private static CDOffering[] cdos;
+
+	private static long accountNumberNext = 1000000;
 }

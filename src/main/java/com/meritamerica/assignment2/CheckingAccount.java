@@ -14,8 +14,7 @@ public class CheckingAccount extends BankAccount
 
 	public double getInterestRate()
 	{
-		return 0.0001;
+		return 0.01 / 100;
 	}
-	
-	
+
 }
