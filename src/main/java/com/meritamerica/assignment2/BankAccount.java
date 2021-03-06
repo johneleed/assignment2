@@ -2,7 +2,8 @@ package com.meritamerica.assignment2;
 
 public class BankAccount {
 	private double interestRate;
-
+	private double balance;
+	
 	public BankAccount(double balance, double interestRate) {
 	}
 
@@ -20,11 +21,11 @@ public class BankAccount {
 	}
 
 	public double getBalance() {
-		return 0;
+		return balance;
 	}
 
 	public double getInterestRate() {
-		return 0;
+		return interestRate;
 	}
 
 	public boolean withdraw(double amount) {
@@ -32,6 +33,10 @@ public class BankAccount {
 	}
 
 	public boolean deposit(double amount) {
+		if (amount > 0) {
+		balance += amount;
+		return true;
+		}
 		return false;
 	}
 

@@ -81,6 +81,7 @@ public class AccountHolder
 	{
 		CheckingAccount nca = null;
 		if( getAccountBalances() <= MeritBank.ACCOUNT_BALANCES_MAX )
+			
 		{
 			nca = new CheckingAccount( openingBalance );
 			if( checkingAccounts == null )
@@ -97,16 +98,16 @@ public class AccountHolder
 		return nca;
 	}
 
-//	public static CheckingAccount[] accountAddOne(
-//			CheckingAccount[] source,
-//			CheckingAccount nca
-//	)
-//	{
-//		CheckingAccount[] destination = new CheckingAccount[ source.length + 1 ];
-//		System.arraycopy( source, 0, destination, 0, source.length );
-//		destination[ source.length ] = nca;
-//		return destination;
-//	}
+	public static CheckingAccount[] accountAddOne(
+			CheckingAccount[] source,
+			CheckingAccount nca
+	)
+	{
+		CheckingAccount[] destination = new CheckingAccount[ source.length + 1 ];
+		System.arraycopy( source, 0, destination, 0, source.length );
+		destination[ source.length ] = nca;
+		return destination;
+	}
 	
 	public CheckingAccount addCheckingAccount(
 			CheckingAccount checkingAccount
@@ -137,7 +138,7 @@ public class AccountHolder
 
 	public CheckingAccount[] getCheckingAccounts()
 	{
-		return new CheckingAccount[ 1 ];
+		return this.checkingAccounts;
 
 	}
 
@@ -230,7 +231,19 @@ public class AccountHolder
 		StringBuilder s = new StringBuilder();
 
 		s.append( "Name: " + this.getFirstName() + " " + this.getMiddleName() + " " + this.getLastName() + " " + this.getSSN() );
-
+		System.out.println("checking");
+		if (checkingAccounts != null )
+			
+		for(int i = 0; i < checkingAccounts.length; i++) {
+			System.out.println(checkingAccounts[i].getAccountNumber());
+			System.out.println(checkingAccounts[i].getBalance());
+		}
+		
+		System.out.println("savings");if ( savingsAccounts != null)
+		for(int i = 0; i < savingsAccounts.length; i++) {
+			System.out.println(savingsAccounts[i].getAccountNumber());
+			System.out.println(savingsAccounts[i].getBalance());
+		}
 		return s.toString();
 	}
 }

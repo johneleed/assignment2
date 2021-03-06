@@ -60,18 +60,18 @@ public class MeritBank
 		return accountNumberNext++ ;
 	}
 
-	static double totalBalances()
-	{
-		double balances = 0;
-		if( checkingAccounts != null )
-			for( int x = 0; x < checkingAccounts.length; x++ )
-				balances += checkingAccounts[ x ].getBalance();
-		if( savingsAccounts != null )
-			for( int x = 0; x < savingsAccounts.length; x++ )
-				balances += savingsAccounts[ x ].getBalance();
-
-		return balances;
-	}
+//	static double totalBalances()
+//	{
+//		double balances = 0;
+//		if( checkingAccounts != null )
+//			for( int x = 0; x < checkingAccounts.length; x++ )
+//				balances += checkingAccounts[ x ].getBalance();
+//		if( savingsAccounts != null )
+//			for( int x = 0; x < savingsAccounts.length; x++ )
+//				balances += savingsAccounts[ x ].getBalance();
+//
+//		return balances;
+//	}
 
 	static double futureValue(
 			double presentValue,
