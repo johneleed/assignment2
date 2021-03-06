@@ -1,59 +1,41 @@
 package com.meritamerica.assignment2;
 
-public class BankAccount
-{
+public class BankAccount {
 	private double interestRate;
 
-	public BankAccount(
-			double balance, double interestRate
-	)
-	{
+	public BankAccount(double balance, double interestRate) {
 	}
 
-	public BankAccount(
-			long accountNumber, double balance, double interestRate
-	)
-	{
+	
+
+	public BankAccount(long accountNumber, double balance, double interestRate) {
 	}
 
-	public BankAccount()
-	{
+	public BankAccount() {
 
 	}
 
-	public long getAccountNumber()
-	{
+	public long getAccountNumber() {
 		return 0;
 	}
 
-	public double getBalance()
-	{
+	public double getBalance() {
 		return 0;
 	}
 
-	public double getInterestRate()
-	{
+	public double getInterestRate() {
 		return 0;
 	}
 
-	public boolean withdraw(
-			double amount
-	)
-	{
+	public boolean withdraw(double amount) {
 		return false;
 	}
 
-	public boolean deposit(
-			double amount
-	)
-	{
+	public boolean deposit(double amount) {
 		return false;
 	}
 
-	public double futureValue(
-			int years
-	)
-	{
+	public double futureValue(int years) {
 		return 0;
 	}
 }

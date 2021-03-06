@@ -3,7 +3,7 @@ package com.meritamerica.assignment2;
 public class MeritBank
 {
 	private static CDOffering[] cdos;
-
+	public static final int ACCOUNT_BALANCES_MAX = 250000;
 	private static long accountNumberNext = 1000000;
 
 	static void addAccountHolder(

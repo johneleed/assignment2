@@ -16,4 +16,6 @@ public class CheckingAccount extends BankAccount
 	{
 		return 0.0001;
 	}
+	
+	
 }
