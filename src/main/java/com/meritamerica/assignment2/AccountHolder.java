@@ -55,25 +55,48 @@ public class AccountHolder {
 	}
 
 	public CheckingAccount addCheckingAccount(double openingBalance) {
-		if (getAccountBalances() <=MeritBank.ACCOUNT_BALANCES_MAX) {
-			return new CheckingAccount(openingBalance);
+		CheckingAccount nca = null;
+		if (getAccountBalances() <= MeritBank.ACCOUNT_BALANCES_MAX) {
+				nca = new CheckingAccount(openingBalance);
+					if (checkingAccounts == null) {
+						checkingAccounts = new CheckingAccount[1];
+						checkingAccounts[1] = nca;
+					} else {
+						checkingAccounts = accountAddOne(checkingAccounts, nca);
+				}
 		}
+		return nca;
+	}
+
+	public static CheckingAccount[] accountAddOne(CheckingAccount[] source, CheckingAccount nca) {
+		CheckingAccount[] destination = new CheckingAccount[source.length + 1];
+		System.arraycopy(source, 0, destination, 0, source.length);
+		destination[source.length] = nca;
+		return destination;
 	}
 
 	public CheckingAccount addCheckingAccount(CheckingAccount checkingAccount) {
 		return checkingAccount;
 	}
-	
+
 	public double getAccountBalances() {
-		double balances=0;
-		if (checkingAccounts!=null) {
-			balances=0
+		double balances = 0;
+		if (checkingAccounts != null) {
+			for (int x = 0; x < checkingAccounts.length; x++) {
+				balances += checkingAccounts[x].getBalance();
+			}
 		}
-	
+		if (savingsAccounts != null) {
+			for (int x = 0; x < savingsAccounts.length; x++) {
+				balances += savingsAccounts[x].getBalance();
+			}
+		}
+		return balances;
+	}
 
 	public CheckingAccount[] getCheckingAccounts() {
 		return new CheckingAccount[1];
-		
+
 	}
 
 	public int getNumberOfCheckingAccounts() {
