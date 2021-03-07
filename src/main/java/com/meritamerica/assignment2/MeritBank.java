@@ -11,11 +11,11 @@ public class MeritBank
 		if( accountHolder == null )
 		{
 			accountHolders = new AccountHolder[ 1 ];
-			accountHolders[0] = accountHolder;
+			accountHolders[ 0 ] = accountHolder;
 		}
 		else
 		{
-			
+			accountHolders = accountAddOne(accountHolders, accountHolder);
 		}
 	}
 
@@ -82,7 +82,7 @@ public class MeritBank
 		return 0;
 	}
 
-	public static SavingsAccount[] accountAddOne(
+	public static SavingsAccount[] increaseArrayBy1(
 			SavingsAccount[] source,
 			SavingsAccount nsa
 	)
@@ -92,18 +92,30 @@ public class MeritBank
 		destination[ source.length ] = nsa;
 		return destination;
 	}
+
 	public static CheckingAccount[] accountAddOne(
 			CheckingAccount[] source,
 			CheckingAccount nca
 	)
-	
+
 	{
 		CheckingAccount[] destination = new CheckingAccount[ source.length + 1 ];
 		System.arraycopy( source, 0, destination, 0, source.length );
 		destination[ source.length ] = nca;
 		return destination;
 	}
-	
+
+	public static AccountHolder[] accountAddOne(
+			AccountHolder[] source,
+			AccountHolder nah
+	)
+	{
+		AccountHolder[] destination = new AccountHolder[ source.length + 1 ];
+		System.arraycopy( source, 0, destination, 0, source.length );
+		destination[ source.length ] = nah;
+		return destination;
+	}
+
 	public static final int ACCOUNT_BALANCES_MAX = 250000;
 
 	private static CDOffering[] cdos;

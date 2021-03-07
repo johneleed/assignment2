@@ -78,27 +78,41 @@ public class AccountHolder
 	public CheckingAccount addCheckingAccount(
 			double openingBalance
 	)
-	{
+	{ // New Checking Account (nca):
 		CheckingAccount nca = null;
-		if( getAccountBalances() <= MeritBank.ACCOUNT_BALANCES_MAX )
-			
+		if( getCombinedBalance() <= MeritBank.ACCOUNT_BALANCES_MAX )
 		{
 			nca = new CheckingAccount( openingBalance );
-			if( checkingAccounts == null )
-			{
-				checkingAccounts = new CheckingAccount[ 1 ];
-				checkingAccounts[ 0 ] = nca;
-			}
-			else
-			{
-				checkingAccounts = MeritBank.accountAddOne( checkingAccounts, nca );
-			}
+			_addCheckingAccount( nca );
 		}
-		
+
 		return nca;
 	}
 
-	public static CheckingAccount[] accountAddOne(
+	public CheckingAccount addCheckingAccount(
+			CheckingAccount checkingAccount
+	)
+	{
+		if( getCombinedBalance() <= MeritBank.ACCOUNT_BALANCES_MAX )
+			_addCheckingAccount( checkingAccount );
+
+		return checkingAccount;
+	}
+
+	private void _addCheckingAccount(
+			CheckingAccount checkingAccount2add
+	)
+	{
+		if( this.getNumberOfCheckingAccounts() < 1 )
+		{
+			checkingAccounts = new CheckingAccount[ 1 ];
+			checkingAccounts[ 0 ] = checkingAccount2add;
+		}
+		else
+			checkingAccounts = MeritBank.accountAddOne( checkingAccounts, checkingAccount2add );
+	}
+
+	public static CheckingAccount[] increaseArrayby1(
 			CheckingAccount[] source,
 			CheckingAccount nca
 	)
@@ -108,48 +122,30 @@ public class AccountHolder
 		destination[ source.length ] = nca;
 		return destination;
 	}
-	
-	public CheckingAccount addCheckingAccount(
-			CheckingAccount checkingAccount
-	)
-	{
-		return checkingAccount;
-	}
 
-	public double getAccountBalances()
-	{
-		double balances = 0;
-		if( checkingAccounts != null )
-		{
-			for( int x = 0; x < checkingAccounts.length; x++ )
-			{
-				balances += checkingAccounts[ x ].getBalance();
-			}
-		}
-		if( savingsAccounts != null )
-		{
-			for( int x = 0; x < savingsAccounts.length; x++ )
-			{
-				balances += savingsAccounts[ x ].getBalance();
-			}
-		}
-		return balances;
-	}
 
 	public CheckingAccount[] getCheckingAccounts()
 	{
 		return this.checkingAccounts;
-
 	}
 
 	public int getNumberOfCheckingAccounts()
 	{
-		return 0;
+		int count = 0;
+		if( checkingAccounts != null )
+			count = checkingAccounts.length;
+
+		return count;
 	}
 
 	public double getCheckingBalance()
 	{
-		return 0;
+		double total = 0;
+		if( this.getNumberOfCheckingAccounts() > 0 )
+			for( int x = 0; x < checkingAccounts.length; x++ )
+				total += checkingAccounts[ x ].getBalance();
+
+		return total;
 	}
 
 	public SavingsAccount addSavingsAccount(
@@ -157,8 +153,8 @@ public class AccountHolder
 	)
 	{
 		SavingsAccount nsa = null;
-		if( getAccountBalances() <= MeritBank.ACCOUNT_BALANCES_MAX )
-			
+		if( getCombinedBalance() <= MeritBank.ACCOUNT_BALANCES_MAX )
+
 		{
 			nsa = new SavingsAccount( openingBalance );
 			if( savingsAccounts == null )
@@ -168,10 +164,10 @@ public class AccountHolder
 			}
 			else
 			{
-				savingsAccounts = MeritBank.accountAddOne( savingsAccounts, nsa );
+				savingsAccounts = MeritBank.increaseArrayBy1( savingsAccounts, nsa );
 			}
 		}
-		
+
 		return nsa;
 	}
 
@@ -230,10 +226,8 @@ public class AccountHolder
 	public double getCombinedBalance()
 	{
 		double balances = 0;
-		if( checkingAccounts != null )
-			for( int x = 0; x < checkingAccounts.length; x++ )
-				balances += checkingAccounts[ x ].getBalance();
-		
+		balances += this.getCheckingBalance();
+
 		if( savingsAccounts != null )
 			for( int x = 0; x < savingsAccounts.length; x++ )
 				balances += savingsAccounts[ x ].getBalance();
@@ -241,26 +235,41 @@ public class AccountHolder
 		return balances;
 	}
 
+//	public double getAccountBalances()
+//	{
+//		double total = 0;
+//		if( checkingAccounts != null )
+//			for( int x = 0; x < checkingAccounts.length; x++ )
+//				total += checkingAccounts[ x ].getBalance();
+//		
+//		if( savingsAccounts != null )
+//			for( int x = 0; x < savingsAccounts.length; x++ )
+//				total += savingsAccounts[ x ].getBalance();
+//		return total;
+//	}
+	
 	public String toString()
 	{
 
 		StringBuilder s = new StringBuilder();
 
-		s.append( "Name: " + this.getFirstName() + " " + this.getMiddleName() 
-		+ " " + this.getLastName() + " " + this.getSSN() );
-		s.append("\n\tchecking");
-		if (checkingAccounts != null )
-			
-		for(int i = 0; i < checkingAccounts.length; i++) {
-			s.append("\n\t\t" + checkingAccounts[i].getAccountNumber());
-			s.append("\n\t\t\t" + checkingAccounts[i].getBalance());
-		}
-		
-		s.append("\n\tsavings");if ( savingsAccounts != null)
-		for(int i = 0; i < savingsAccounts.length; i++) {
-			s.append("\n\t\t" + savingsAccounts[i].getAccountNumber());
-			s.append("\n\t\t\t" + savingsAccounts[i].getBalance());
-		}
+		s.append( "Name: " + this.getFirstName() + " " + this.getMiddleName() + " " + this.getLastName() + " " + this.getSSN() );
+		s.append( "\n\tchecking" );
+		if( checkingAccounts != null )
+
+			for( int i = 0; i < checkingAccounts.length; i++ )
+			{
+				s.append( "\n\t\t" + checkingAccounts[ i ].getAccountNumber() );
+				s.append( "\n\t\t\t" + checkingAccounts[ i ].getBalance() );
+			}
+
+		s.append( "\n\tsavings" );
+		if( savingsAccounts != null )
+			for( int i = 0; i < savingsAccounts.length; i++ )
+			{
+				s.append( "\n\t\t" + savingsAccounts[ i ].getAccountNumber() );
+				s.append( "\n\t\t\t" + savingsAccounts[ i ].getBalance() );
+			}
 		return s.toString();
 	}
 }

@@ -34,6 +34,8 @@ public class MeritAmericaBankApp
 		ah1.addSavingsAccount( 50000 );
 		//////////////////////
 		System.out.println( ah1.toString() );
-		ah1.addCheckingAccount( 1.1 );
+		
+		
+
 	}
 }
