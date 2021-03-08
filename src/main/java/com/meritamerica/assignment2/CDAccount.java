@@ -6,13 +6,11 @@ public class CDAccount extends BankAccount
 			CDOffering offering, double balance
 	)
 	{
-		super( MeritBank.getNextAccountNumber(), balance, offering.getInterestRate() );
-		this.offering = offering;
-	}
+		super( MeritBank.getNextAccountNumber(), balance, offering.getInterestRate()
+		);
 
-//	public CDAccount()
-//	{ // Remove this?
-//	}
+		this.term = offering.getTerm();
+	}
 
 	public double getBalance()
 	{
@@ -26,7 +24,7 @@ public class CDAccount extends BankAccount
 
 	public int getTerm()
 	{
-		return this.offering.getTerm();
+		return this.term;
 	}
 
 	public java.util.Date getStartDate()
@@ -44,7 +42,7 @@ public class CDAccount extends BankAccount
 		return super.futureValue( this.getTerm() );
 	}
 
-	private CDOffering offering;
+	private int term;
 
 	private java.util.Date dateStart;
 }

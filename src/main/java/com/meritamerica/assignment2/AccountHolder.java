@@ -102,7 +102,7 @@ public class AccountHolder
 			accountsChecking[ 0 ] = checkingAccount2add;
 		}
 		else
-			accountsChecking = MeritBank.accountAddOne( accountsChecking, checkingAccount2add );
+			accountsChecking = MeritBank.increaseArrayBy1( accountsChecking, checkingAccount2add );
 	}
 
 	public static CheckingAccount[] increaseArrayby1(
@@ -216,7 +216,9 @@ public class AccountHolder
 			CDAccount cdAccount
 	)
 	{
-		_addCDAccount( cdAccount );
+		if( cdAccount != null )
+			_addCDAccount( cdAccount );
+
 		return cdAccount;
 	}
 
@@ -268,23 +270,38 @@ public class AccountHolder
 	{
 		StringBuilder s = new StringBuilder();
 
-		s.append( "Name: " + this.getFirstName() + " " + this.getMiddleName() + " " + this.getLastName() + " " + this.getSSN() );
-		s.append( "\n\tchecking" );
-		if( accountsChecking != null )
+		int count = this.getNumberOfCheckingAccounts();
 
+		s.append( "Name: " + this.getFirstName() + " " + this.getMiddleName() + " " + this.getLastName() + " " + this.getSSN() );
+		s.append( "\n\tChecking Accounts:" );
+		s.append( "\n\tCount: " + count );
+		if( count > 0 )
 			for( int i = 0; i < accountsChecking.length; i++ )
 			{
 				s.append( "\n\t\t" + accountsChecking[ i ].getAccountNumber() );
 				s.append( "\n\t\t\t" + accountsChecking[ i ].getBalance() );
 			}
 
-		s.append( "\n\tsavings" );
-		if( accountsSavings != null )
+		count = this.getNumberOfSavingsAccounts();
+		s.append( "\n\tSavings Accounts:" );
+		s.append( "\n\tCount: " + count );
+		if( count > 0 )
 			for( int i = 0; i < accountsSavings.length; i++ )
 			{
 				s.append( "\n\t\t" + accountsSavings[ i ].getAccountNumber() );
 				s.append( "\n\t\t\t" + accountsSavings[ i ].getBalance() );
 			}
+
+		count = this.getNumberOfCDAccounts();
+		s.append( "\n\tCDs:" );
+		s.append( "\n\tCount: " + count );
+		if( count > 0 )
+			for( int i = 0; i < accountsCD.length; i++ )
+			{
+				s.append( "\n\t\t" + accountsCD[ i ].getAccountNumber() );
+				s.append( "\n\t\t\t" + accountsCD[ i ].getBalance() );
+			}
+
 		return s.toString();
 	}
 

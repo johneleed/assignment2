@@ -26,6 +26,7 @@ public class BankAccount
 
 	}
 
+
 	public long getAccountNumber()
 	{
 		return this.accountNumber;
@@ -76,6 +77,28 @@ public class BankAccount
 	}
 
 	private double interestRate;
+
+//	public void setInterestRate(
+//			double interestRate
+//	)
+//	{
+//		this.interestRate = interestRate;
+//	}
+//
+//	public void setBalance(
+//			double balance
+//	)
+//	{
+//		this.balance = balance;
+//	}
+	
+//	public void setAccountNumber(
+//			long accountNumber
+//			)
+//	{
+//		this.accountNumber = accountNumber;
+//	}
+
 	private double balance;
 	private long accountNumber;
 }
