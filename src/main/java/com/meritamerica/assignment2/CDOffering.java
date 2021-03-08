@@ -6,15 +6,21 @@ public class CDOffering
 			int term, double interestRate
 	)
 	{
+		this.term = term;
+		this.interestRate = interestRate;
 	}
 
 	public int getTerm()
 	{
-		return 0;
+		return this.term;
 	}
 
 	public double getInterestRate()
 	{
-		return 0;
+		return this.interestRate;
 	}
+
+	private int term;
+
+	private double interestRate;
 }

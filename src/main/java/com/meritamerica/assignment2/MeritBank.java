@@ -15,7 +15,7 @@ public class MeritBank
 		}
 		else
 		{
-			accountHolders = accountAddOne(accountHolders, accountHolder);
+			accountHolders = accountAddOne( accountHolders, accountHolder );
 		}
 	}
 
@@ -33,14 +33,61 @@ public class MeritBank
 			double depositAmount
 	)
 	{
-		return cdos[ 0 ];
+		double valueBest = 0;
+
+		double tempValue;
+
+		byte indexBest = 0;
+
+		for( byte b = 0; b < cdos.length; b++ )
+		{
+			tempValue = futureValue( depositAmount, cdos[ b ].getInterestRate(), cdos[ b ].getTerm() );
+//			System.out.println( cdos[ b ].getInterestRate() + ", " + cdos[ b ].getTerm() + ", " + tempValue );
+			if( tempValue > valueBest )
+			{
+				valueBest = tempValue;
+				indexBest = b;
+			}
+		}
+
+//		System.out.println( indexBest );
+		return cdos[ indexBest ];
+	}
+
+	static double futureValue(
+			double presentValue,
+			double interestRate,
+			int term
+	)
+	{
+		return presentValue * Math.pow( 1 + interestRate, term );
 	}
 
 	static CDOffering getSecondBestCDOffering(
 			double depositAmount
 	)
 	{
-		return cdos[ 0 ];
+		double valueBest = 0; // , valueSecond = 0
+
+		double tempValue;
+
+		byte indexBest = 0, indexSecond = 0;
+
+		for( byte b = 0; b < cdos.length; b++ )
+		{
+			tempValue = futureValue( 10000, cdos[ b ].getInterestRate(), cdos[ b ].getTerm() );
+//			System.out.println( cdos[ b ].getInterestRate() + ", " + cdos[ b ].getTerm() + ", " + tempValue );
+			if( tempValue > valueBest )
+			{
+				// valueSecond = valueBest;
+				indexSecond = indexBest;
+				valueBest = tempValue;
+				indexBest = b;
+			}
+		}
+
+//		System.out.println( indexSecond );
+		return cdos[ indexSecond ];
 	}
 
 	static void clearCDOfferings()
@@ -60,28 +107,6 @@ public class MeritBank
 		return accountNumberNext++ ;
 	}
 
-//	static double totalBalances()
-//	{
-//		double balances = 0;
-//		if( checkingAccounts != null )
-//			for( int x = 0; x < checkingAccounts.length; x++ )
-//				balances += checkingAccounts[ x ].getBalance();
-//		if( savingsAccounts != null )
-//			for( int x = 0; x < savingsAccounts.length; x++ )
-//				balances += savingsAccounts[ x ].getBalance();
-//
-//		return balances;
-//	}
-
-	static double futureValue(
-			double presentValue,
-			double interestRate,
-			int term
-	)
-	{
-		return 0;
-	}
-
 	public static SavingsAccount[] increaseArrayBy1(
 			SavingsAccount[] source,
 			SavingsAccount nsa
@@ -90,6 +115,17 @@ public class MeritBank
 		SavingsAccount[] destination = new SavingsAccount[ source.length + 1 ];
 		System.arraycopy( source, 0, destination, 0, source.length );
 		destination[ source.length ] = nsa;
+		return destination;
+	}
+
+	public static CDAccount[] increaseArrayBy1(
+			CDAccount[] source,
+			CDAccount ncda
+	)
+	{ // New CD Account (ncda):
+		CDAccount[] destination = new CDAccount[ source.length + 1 ];
+		System.arraycopy( source, 0, destination, 0, source.length );
+		destination[ source.length ] = ncda;
 		return destination;
 	}
 

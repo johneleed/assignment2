@@ -2,15 +2,12 @@ package com.meritamerica.assignment2;
 
 public class CheckingAccount extends BankAccount
 {
-
-
 	CheckingAccount(
 			double openingBalance
-			)
+	)
 	{
 		super( MeritBank.getNextAccountNumber(), openingBalance, INTEREST_RATE
-				);
-
+		);
 	}
 
 	public double getInterestRate()

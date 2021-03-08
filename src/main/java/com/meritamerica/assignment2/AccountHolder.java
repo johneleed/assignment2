@@ -116,7 +116,6 @@ public class AccountHolder
 		return destination;
 	}
 
-
 	public CheckingAccount[] getCheckingAccounts()
 	{
 		return this.accountsChecking;
@@ -140,10 +139,10 @@ public class AccountHolder
 
 		return total;
 	}
-	
+
 	public SavingsAccount addSavingsAccount(
 			double openingBalance
-			)
+	)
 
 	{ // New Savings Account (nsa):
 		SavingsAccount nsa = null;
@@ -165,7 +164,7 @@ public class AccountHolder
 
 		return savingsAccount;
 	}
-	
+
 	private void _addSavingsAccount(
 			SavingsAccount savingsAccount2add
 	)
@@ -178,12 +177,12 @@ public class AccountHolder
 		else
 			accountsSavings = MeritBank.increaseArrayBy1( accountsSavings, savingsAccount2add );
 	}
-	
+
 	public SavingsAccount[] getSavingsAccounts()
 	{
 		return this.accountsSavings;
 	}
-	
+
 	public int getNumberOfSavingsAccounts()
 	{
 		int count = 0;
@@ -202,52 +201,71 @@ public class AccountHolder
 
 		return total;
 	}
-	
+
 	public CDAccount addCDAccount(
 			CDOffering offering,
 			double openingBalance
 	)
-	{
-		return new CDAccount();
+	{ // New CD Account to add (ncda):
+		CDAccount ncda = new CDAccount( offering, openingBalance );
+		_addCDAccount( ncda );
+		return ncda;
 	}
 
 	public CDAccount addCDAccount(
 			CDAccount cdAccount
 	)
 	{
-		return new CDAccount();
+		_addCDAccount( cdAccount );
+		return cdAccount;
+	}
+
+	private void _addCDAccount(
+			CDAccount cdAccount2add
+	)
+	{
+		if( accountsCD == null )
+		{
+			accountsCD = new CDAccount[ 1 ];
+			accountsCD[ 0 ] = cdAccount2add;
+		}
+		else
+			MeritBank.increaseArrayBy1( accountsCD, cdAccount2add );
 	}
 
 	public CDAccount[] getCDAccounts()
 	{
-		return new CDAccount[ 0 ];
+		return this.accountsCD;
 	}
 
 	public int getNumberOfCDAccounts()
 	{
-		return 0;
+		int count = 0;
+
+		if( this.accountsCD != null )
+			count = this.accountsCD.length;
+
+		return count;
 	}
 
 	public double getCDBalance()
 	{
-		return 0;
+		double total = 0;
+
+		if( getNumberOfCDAccounts() > 0 )
+			for( int x = 0; x < accountsCD.length; x++ )
+				total += accountsCD[ x ].getBalance();
+
+		return total;
 	}
 
 	public double getCombinedBalance()
 	{
-		double balances = 0;
-		balances += this.getCheckingBalance();
-
-		if( accountsSavings != null )
-			for( int x = 0; x < accountsSavings.length; x++ )
-				balances += accountsSavings[ x ].getBalance();
-
-		return balances;
+		return this.getCheckingBalance() + this.getSavingsBalance();
 	}
 
 	public String toString()
 	{
-
 		StringBuilder s = new StringBuilder();
 
 		s.append( "Name: " + this.getFirstName() + " " + this.getMiddleName() + " " + this.getLastName() + " " + this.getSSN() );
@@ -269,7 +287,7 @@ public class AccountHolder
 			}
 		return s.toString();
 	}
-	
+
 	private String nameFirst;
 	private String nameMiddle;
 	private String nameLast;

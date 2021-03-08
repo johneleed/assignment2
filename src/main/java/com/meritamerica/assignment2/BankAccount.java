@@ -72,7 +72,7 @@ public class BankAccount
 			int years
 	)
 	{
-		return this.balance * Math.pow( 1 + this.interestRate, years );
+		return MeritBank.futureValue( this.getBalance(), this.getInterestRate(), years );
 	}
 
 	private double interestRate;
