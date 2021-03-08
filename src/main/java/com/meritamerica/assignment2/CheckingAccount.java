@@ -2,21 +2,21 @@ package com.meritamerica.assignment2;
 
 public class CheckingAccount extends BankAccount
 {
-	private long accountNumber;
+
 
 	CheckingAccount(
 			double openingBalance
-	)
+			)
 	{
-//		this.deposit( openingBalance );
-//		this.accountNumber = this.getAccountNumber();
-		
+		super( MeritBank.getNextAccountNumber(), openingBalance, INTEREST_RATE
+				);
+
 	}
 
 	public double getInterestRate()
 	{
-		return 0.01 / 100;
+		return INTEREST_RATE;
 	}
 
-	
+	private static final double INTEREST_RATE = 0.01 / 100;
 }

@@ -140,25 +140,17 @@ public class AccountHolder
 
 		return total;
 	}
-
+	
 	public SavingsAccount addSavingsAccount(
 			double openingBalance
-	)
-	{
+			)
+
+	{ // New Savings Account (nsa):
 		SavingsAccount nsa = null;
 		if( getCombinedBalance() <= MeritBank.ACCOUNT_BALANCES_MAX )
-
 		{
 			nsa = new SavingsAccount( openingBalance );
-			if( accountsSavings == null )
-			{
-				accountsSavings = new SavingsAccount[ 1 ];
-				accountsSavings[ 0 ] = nsa;
-			}
-			else
-			{
-				accountsSavings = MeritBank.increaseArrayBy1( accountsSavings, nsa );
-			}
+			_addSavingsAccount( nsa );
 		}
 
 		return nsa;
@@ -168,24 +160,49 @@ public class AccountHolder
 			SavingsAccount savingsAccount
 	)
 	{
-		return new SavingsAccount();
-	}
+		if( getCombinedBalance() <= MeritBank.ACCOUNT_BALANCES_MAX )
+			_addSavingsAccount( savingsAccount );
 
+		return savingsAccount;
+	}
+	
+	private void _addSavingsAccount(
+			SavingsAccount savingsAccount2add
+	)
+	{
+		if( this.getNumberOfSavingsAccounts() < 1 )
+		{
+			accountsSavings = new SavingsAccount[ 1 ];
+			accountsSavings[ 0 ] = savingsAccount2add;
+		}
+		else
+			accountsSavings = MeritBank.increaseArrayBy1( accountsSavings, savingsAccount2add );
+	}
+	
 	public SavingsAccount[] getSavingsAccounts()
 	{
-		return new SavingsAccount[ 1 ];
+		return this.accountsSavings;
 	}
-
+	
 	public int getNumberOfSavingsAccounts()
 	{
-		return 0;
+		int count = 0;
+		if( accountsSavings != null )
+			count = accountsSavings.length;
+
+		return count;
 	}
 
 	public double getSavingsBalance()
 	{
-		return 0;
-	}
+		double total = 0;
+		if( this.getNumberOfSavingsAccounts() > 0 )
+			for( int x = 0; x < accountsSavings.length; x++ )
+				total += accountsSavings[ x ].getBalance();
 
+		return total;
+	}
+	
 	public CDAccount addCDAccount(
 			CDOffering offering,
 			double openingBalance
@@ -260,6 +277,5 @@ public class AccountHolder
 
 	private CheckingAccount[] accountsChecking;
 	private SavingsAccount[] accountsSavings;
-	private BankAccount[] accountsBank;
 	private CDAccount[] accountsCD;
 }
