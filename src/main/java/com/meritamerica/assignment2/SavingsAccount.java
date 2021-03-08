@@ -2,8 +2,6 @@ package com.meritamerica.assignment2;
 
 public class SavingsAccount extends BankAccount
 {
-	private long accountNumber;
-
 	SavingsAccount()
 	{
 	}
@@ -12,12 +10,14 @@ public class SavingsAccount extends BankAccount
 			double openingBalance
 	)
 	{
-		this.deposit( openingBalance );
-		this.accountNumber = this.getAccountNumber();
+		super( MeritBank.getNextAccountNumber(), openingBalance, INTEREST_RATE
+		);
 	}
 
 	public double getInterestRate()
 	{
-		return 1 / 100;
+		return INTEREST_RATE;
 	}
+
+	private static final double INTEREST_RATE = 1 / 100;
 }

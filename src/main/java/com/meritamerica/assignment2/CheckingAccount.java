@@ -8,8 +8,9 @@ public class CheckingAccount extends BankAccount
 			double openingBalance
 	)
 	{
-		this.deposit( openingBalance );
-		this.accountNumber = this.getAccountNumber();
+//		this.deposit( openingBalance );
+//		this.accountNumber = this.getAccountNumber();
+		
 	}
 
 	public double getInterestRate()
@@ -17,4 +18,5 @@ public class CheckingAccount extends BankAccount
 		return 0.01 / 100;
 	}
 
+	
 }

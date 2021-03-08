@@ -2,13 +2,6 @@ package com.meritamerica.assignment2;
 
 public class AccountHolder
 {
-	private String nameFirst;
-	private String nameMiddle;
-	private String nameLast;
-	private String SSN;
-	private CheckingAccount[] checkingAccounts;
-	private SavingsAccount[] savingsAccounts;
-
 	AccountHolder()
 	{
 		this.nameFirst = new String();
@@ -105,11 +98,11 @@ public class AccountHolder
 	{
 		if( this.getNumberOfCheckingAccounts() < 1 )
 		{
-			checkingAccounts = new CheckingAccount[ 1 ];
-			checkingAccounts[ 0 ] = checkingAccount2add;
+			accountsChecking = new CheckingAccount[ 1 ];
+			accountsChecking[ 0 ] = checkingAccount2add;
 		}
 		else
-			checkingAccounts = MeritBank.accountAddOne( checkingAccounts, checkingAccount2add );
+			accountsChecking = MeritBank.accountAddOne( accountsChecking, checkingAccount2add );
 	}
 
 	public static CheckingAccount[] increaseArrayby1(
@@ -126,14 +119,14 @@ public class AccountHolder
 
 	public CheckingAccount[] getCheckingAccounts()
 	{
-		return this.checkingAccounts;
+		return this.accountsChecking;
 	}
 
 	public int getNumberOfCheckingAccounts()
 	{
 		int count = 0;
-		if( checkingAccounts != null )
-			count = checkingAccounts.length;
+		if( accountsChecking != null )
+			count = accountsChecking.length;
 
 		return count;
 	}
@@ -142,8 +135,8 @@ public class AccountHolder
 	{
 		double total = 0;
 		if( this.getNumberOfCheckingAccounts() > 0 )
-			for( int x = 0; x < checkingAccounts.length; x++ )
-				total += checkingAccounts[ x ].getBalance();
+			for( int x = 0; x < accountsChecking.length; x++ )
+				total += accountsChecking[ x ].getBalance();
 
 		return total;
 	}
@@ -157,14 +150,14 @@ public class AccountHolder
 
 		{
 			nsa = new SavingsAccount( openingBalance );
-			if( savingsAccounts == null )
+			if( accountsSavings == null )
 			{
-				savingsAccounts = new SavingsAccount[ 1 ];
-				savingsAccounts[ 0 ] = nsa;
+				accountsSavings = new SavingsAccount[ 1 ];
+				accountsSavings[ 0 ] = nsa;
 			}
 			else
 			{
-				savingsAccounts = MeritBank.increaseArrayBy1( savingsAccounts, nsa );
+				accountsSavings = MeritBank.increaseArrayBy1( accountsSavings, nsa );
 			}
 		}
 
@@ -228,26 +221,13 @@ public class AccountHolder
 		double balances = 0;
 		balances += this.getCheckingBalance();
 
-		if( savingsAccounts != null )
-			for( int x = 0; x < savingsAccounts.length; x++ )
-				balances += savingsAccounts[ x ].getBalance();
+		if( accountsSavings != null )
+			for( int x = 0; x < accountsSavings.length; x++ )
+				balances += accountsSavings[ x ].getBalance();
 
 		return balances;
 	}
 
-//	public double getAccountBalances()
-//	{
-//		double total = 0;
-//		if( checkingAccounts != null )
-//			for( int x = 0; x < checkingAccounts.length; x++ )
-//				total += checkingAccounts[ x ].getBalance();
-//		
-//		if( savingsAccounts != null )
-//			for( int x = 0; x < savingsAccounts.length; x++ )
-//				total += savingsAccounts[ x ].getBalance();
-//		return total;
-//	}
-	
 	public String toString()
 	{
 
@@ -255,21 +235,31 @@ public class AccountHolder
 
 		s.append( "Name: " + this.getFirstName() + " " + this.getMiddleName() + " " + this.getLastName() + " " + this.getSSN() );
 		s.append( "\n\tchecking" );
-		if( checkingAccounts != null )
+		if( accountsChecking != null )
 
-			for( int i = 0; i < checkingAccounts.length; i++ )
+			for( int i = 0; i < accountsChecking.length; i++ )
 			{
-				s.append( "\n\t\t" + checkingAccounts[ i ].getAccountNumber() );
-				s.append( "\n\t\t\t" + checkingAccounts[ i ].getBalance() );
+				s.append( "\n\t\t" + accountsChecking[ i ].getAccountNumber() );
+				s.append( "\n\t\t\t" + accountsChecking[ i ].getBalance() );
 			}
 
 		s.append( "\n\tsavings" );
-		if( savingsAccounts != null )
-			for( int i = 0; i < savingsAccounts.length; i++ )
+		if( accountsSavings != null )
+			for( int i = 0; i < accountsSavings.length; i++ )
 			{
-				s.append( "\n\t\t" + savingsAccounts[ i ].getAccountNumber() );
-				s.append( "\n\t\t\t" + savingsAccounts[ i ].getBalance() );
+				s.append( "\n\t\t" + accountsSavings[ i ].getAccountNumber() );
+				s.append( "\n\t\t\t" + accountsSavings[ i ].getBalance() );
 			}
 		return s.toString();
 	}
+	
+	private String nameFirst;
+	private String nameMiddle;
+	private String nameLast;
+	private String SSN;
+
+	private CheckingAccount[] accountsChecking;
+	private SavingsAccount[] accountsSavings;
+	private BankAccount[] accountsBank;
+	private CDAccount[] accountsCD;
 }
