@@ -73,7 +73,7 @@ public class AccountHolder
 	)
 	{ // New Checking Account (nca):
 		CheckingAccount nca = null;
-		if( getCombinedBalance() <= MeritBank.ACCOUNT_BALANCES_MAX )
+		if( this.getCombinedBalance() + openingBalance <= MeritBank.ACCOUNT_BALANCES_MAX )
 		{
 			nca = new CheckingAccount( openingBalance );
 			_addCheckingAccount( nca );
@@ -86,7 +86,7 @@ public class AccountHolder
 			CheckingAccount checkingAccount
 	)
 	{
-		if( getCombinedBalance() <= MeritBank.ACCOUNT_BALANCES_MAX )
+		if( this.getCombinedBalance() + checkingAccount.getBalance() <= MeritBank.ACCOUNT_BALANCES_MAX )
 			_addCheckingAccount( checkingAccount );
 
 		return checkingAccount;
@@ -146,7 +146,7 @@ public class AccountHolder
 
 	{ // New Savings Account (nsa):
 		SavingsAccount nsa = null;
-		if( getCombinedBalance() <= MeritBank.ACCOUNT_BALANCES_MAX )
+		if( this.getCombinedBalance() + openingBalance <= MeritBank.ACCOUNT_BALANCES_MAX )
 		{
 			nsa = new SavingsAccount( openingBalance );
 			_addSavingsAccount( nsa );
@@ -159,7 +159,7 @@ public class AccountHolder
 			SavingsAccount savingsAccount
 	)
 	{
-		if( getCombinedBalance() <= MeritBank.ACCOUNT_BALANCES_MAX )
+		if( this.getCombinedBalance() + savingsAccount.getBalance() <= MeritBank.ACCOUNT_BALANCES_MAX )
 			_addSavingsAccount( savingsAccount );
 
 		return savingsAccount;
@@ -263,7 +263,7 @@ public class AccountHolder
 
 	public double getCombinedBalance()
 	{
-		return this.getCheckingBalance() + this.getSavingsBalance();
+		return this.getCheckingBalance() + this.getSavingsBalance() + this.getCDBalance();
 	}
 
 	public String toString()

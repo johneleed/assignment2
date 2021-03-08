@@ -115,14 +115,14 @@ public class MeritAmericaBankApp
 		for( AccountHolder ah: MeritBank.getAccountHolders() )
 		{
 			total += ah.getCombinedBalance();
-			if( ah.getNumberOfCDAccounts() > 0 )
-				for( CDAccount cda: ah.getCDAccounts() )
-					total += cda.getBalance();
+//			if( ah.getNumberOfCDAccounts() > 0 )
+//				for( CDAccount cda: ah.getCDAccounts() )
+//					total += cda.getBalance();
 		}
 
 		System.out.println( "Total balance of all Merit Bank accountholders: " + total );
-//		System.out.println( ah1.toString() );
-//		System.out.println( ah2.toString() );
-//		System.out.println( ah3.toString() );
+		System.out.println( ah1.toString() );
+		System.out.println( ah2.toString() );
+		System.out.println( ah3.toString() );
 	}
 }
